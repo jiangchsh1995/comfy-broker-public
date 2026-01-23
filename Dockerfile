@@ -16,6 +16,7 @@ RUN mkdir -p /etc/cloudflared \
 COPY app.so /app/
 COPY main.py /app/main.py
 COPY rootfs/ /
+RUN chmod +x /etc/services.d/*/run
 
 ENV S6_KEEP_ENV=1
 ENV DATA_DIR=/data
