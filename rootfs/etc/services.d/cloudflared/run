@@ -1,0 +1,20 @@
+#!/bin/sh
+set -eu
+
+: "${CF_TUNNEL_TOKEN:?Need CF_TUNNEL_TOKEN}"
+: "${BROKER_HOSTNAME:?Need BROKER_HOSTNAME}"
+
+TOKEN="$(printf "%s" "${CF_TUNNEL_TOKEN}" | tr -d '\r\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+
+LEN="$(printf "%s" "$TOKEN" | wc -c | tr -d ' ')"
+FP="$(printf "%s" "$TOKEN" | sha256sum | awk '{print substr($1,1,12)}')"
+echo "[cloudflared] token_len=$LEN token_fp=$FP hostname=$BROKER_HOSTNAME"
+
+cat > /etc/cloudflared/config.yml <<EOF
+ingress:
+  - hostname: ${BROKER_HOSTNAME}
+    service: http://127.0.0.1:8080
+  - service: http_status:404
+EOF
+
+exec cloudflared tunnel --no-autoupdate --protocol http2 run --token "$TOKEN"

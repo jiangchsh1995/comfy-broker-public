@@ -1,0 +1,24 @@
+# Source (private)
+app.py
+app.c
+setup.py
+
+# Build artifacts
+*.pyc
+__pycache__/
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+*.csv
+
+# IDE
+.vscode/
+.idea/
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db

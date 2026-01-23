@@ -1,0 +1,40 @@
+#!/bin/sh
+set -eu
+
+: "${BROKER_SECRET:?Need BROKER_SECRET}"
+: "${PORT:=8080}"
+
+DATA_DIR="${DATA_DIR:-/data}"
+mkdir -p "$DATA_DIR"
+
+echo "[broker] PORT=$PORT DATA_DIR=$DATA_DIR"
+echo "[broker] pwd=$(pwd)"
+echo "[broker] ls -la /app:"
+ls -la /app || true
+
+cd /app
+
+python main.py &
+PID=$!
+
+# ???????? 15 ?
+echo "[broker] waiting for http://127.0.0.1:$PORT/healthz ..."
+ok=0
+for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+  if curl -fsS "http://127.0.0.1:$PORT/healthz" >/dev/null 2>&1; then
+    echo "[broker] healthz OK"
+    ok=1
+    break
+  fi
+  echo "[broker] not ready yet ($i/15)"
+  sleep 1
+done
+
+if [ "$ok" -ne 1 ]; then
+  echo "[broker] healthz STILL NOT READY - dumping last logs and exiting"
+  kill "$PID" 2>/dev/null || true
+  wait "$PID" 2>/dev/null || true
+  exit 1
+fi
+
+wait "$PID"
