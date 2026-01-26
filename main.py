@@ -10,6 +10,7 @@ if __name__ == "__main__":
         port=port,
         proxy_headers=True,
         forwarded_allow_ips="*",
-        ws_ping_interval=20, 
-        ws_ping_timeout=60, 
+        ws_ping_interval=30,   # 或 30，更“温和”一点
+        ws_ping_timeout=60,
+        log_level="info",     # 可选
     )
