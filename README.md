@@ -39,7 +39,7 @@ docker run -d \
 |------|------|--------|------|
 | `BROKER_SECRET` | 是 | - | Broker 认证密钥 |
 | `BROKER_HOSTNAME` | 是 | - | 对外域名（仅域名，不含协议） |
-| `CF_TUNNEL_TOKEN` | 是 | - | Cloudflare Tunnel Token |
+| `CF_TUNNEL_TOKEN` | 是 | - | Cloudflare Tunnel Token/Cloudflare worker版不需要 |
 | `PORT` | 否 | `8080` | 服务端口 |
 | `DATA_DIR` | 否 | `/data` | 数据持久化目录 |
 | `HEARTBEAT_TTL` | 否 | `45` | Worker 心跳超时（秒） |
