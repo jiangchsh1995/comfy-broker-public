@@ -75,9 +75,9 @@ docker run -d \
 4. 复制 Token（`--token` 后面的部分）
 5. 在 **Public Hostnames** 添加域名映射到 `http://127.0.0.1:8080`
 
-## Worker 配置
+## kaggle 配置
 
-Worker 端需要配置：
+kaggle 端需要配置：
 
 ```python
 BROKER_BASE   = "https://your.domain.com"  # 对应 BROKER_HOSTNAME
