@@ -76,4 +76,4 @@ BROKER_SECRET = "your_secret"               # 与 Broker 一致
 
 ## 许可证
 
-MIT
+Other
