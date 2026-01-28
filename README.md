@@ -13,6 +13,28 @@ ComfyUI 代理服务，支持多 Worker 节点负载均衡和自动故障转移�
 
 ## 快速部署
 
+### Cloudflare worker版 一键部署
+
+[点击这里在 Cloudflare 上部署](https://dash.cloudflare.com/)
+
+Fork 本仓库后，在 Cloudflare Worker 中导入模板即可。
+
+1. 登录 [Cloudflare](https://cloudflare.com) 并创建一个账户（如果还没有的话）。
+2. 进入 [Cloudflare Workers](https://workers.cloudflare.com/) 控制台。
+3. 点击 **Create a Worker**，然后选择 **Start with an empty worker**。
+4. 在新创建的 Worker 页面，点击 **Quick Edit**，将代码替换为本仓库中的代码。
+5. 保存并部署。
+
+在 Cloudflare Worker 中配置环境变量：
+
+- 在 Worker 设置页的 **Environment Variables** 部分，添加以下环境变量：
+  - `BROKER_SECRET`: 你的 Broker 认证密钥
+  - `BROKER_HOSTNAME`: 你的对外域名
+
+配置完后，点击 **Deploy** 即可将 Worker 部署到 Cloudflare。
+
+> 注意：Cloudflare Worker 版不需要 `CF_TUNNEL_TOKEN`，如果你不使用 Tunnel 功能，请将此环境变量留空。
+
 ### Zeabur 一键部署
 
 [![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/comfy-broker)
